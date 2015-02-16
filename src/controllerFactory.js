@@ -1,4 +1,22 @@
 'use strict';
+
+(function(){
+  var ngModule = angular.module;
+  angular.module = function(){
+    var module = ngModule.apply(this, arguments);
+    if(angular.isObject(module) && module.controllerFactory === undefined){
+      module.controllerFactory = function(){
+        var args = arguments;
+        angular.config(function($controllerProvider){
+          $controllerProvider.registerFactory.apply($controllerProvider, args);
+        });
+        return this;
+      };
+    }
+    return module;
+  };
+})();
+
 angular.module('dorellang.controllerFactory', [])
   .config(function($controllerProvider, $provide){
     var controllers = {};
