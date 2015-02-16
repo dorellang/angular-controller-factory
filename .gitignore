@@ -6,3 +6,5 @@ bower_components
 .ruby-version
 .ruby-gemset
 .venv
+project.sublime-project
+project.sublime-workspace
