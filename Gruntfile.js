@@ -138,12 +138,14 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
+    'jshint',
     'clean:server',
     'connect:test',
     'karma'
   ]);
 
   grunt.registerTask('build', [
+    'jshint',
     'clean:dist',
     'concat',
     'ngAnnotate',
