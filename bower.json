@@ -1,7 +1,7 @@
 {
   "name": "angular-controller-factory",
   "version": "0.1.0",
-  "main": "dist/controllerFactory.min.js",
+  "main": "dist/controllerFactory.js",
   "ignore": [
     "src",
     "test",

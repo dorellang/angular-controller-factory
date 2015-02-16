@@ -1,5 +1,5 @@
 'use strict';
-describe('ctrlFactory', function(){
+describe('controllerFactory', function(){
 
   describe('vanilla API', function(){
     function Foo($http, $location){
@@ -148,6 +148,21 @@ describe('ctrlFactory', function(){
         expect(grandChild.service1).toBe($parse);
         expect(grandChild.service2).toBe($injector);
       });
+    });
+  });
+
+  describe('angular.module shortcut', function(){
+    it('should forward to $controllerProvider.registerFactory', function(){
+      var ctrlProvider;
+      function dummy(){}
+      module('dorellang.controllerFactory', function($controllerProvider){
+        spyOn($controllerProvider, 'registerFactory');
+        ctrlProvider = $controllerProvider;
+      }, 'test');
+      angular.module('test', [])
+        .controllerFactory('TestCtrl', dummy);
+      inject(dummy);
+      expect(ctrlProvider.registerFactory).toHaveBeenCalledWith('TestCtrl', dummy);
     });
   });
 });

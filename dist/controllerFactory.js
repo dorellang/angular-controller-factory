@@ -1,5 +1,5 @@
 'use strict';
-
+// Source: src/controllerFactory.js
 (function(){
   var ngModule = angular.module;
   angular.module = function(){
@@ -7,9 +7,9 @@
     if(angular.isObject(module) && module.controllerFactory === undefined){
       module.controllerFactory = function(){
         var args = arguments;
-        this.config(function($controllerProvider){
+        this.config(["$controllerProvider", function($controllerProvider){
           $controllerProvider.registerFactory.apply($controllerProvider, args);
-        });
+        }]);
         return this;
       };
     }
@@ -18,7 +18,7 @@
 })();
 
 angular.module('dorellang.controllerFactory', [])
-  .config(function($controllerProvider, $provide){
+  .config(["$controllerProvider", "$provide", function($controllerProvider, $provide){
     var controllers = {};
 
     var $super = $controllerProvider.register;
@@ -48,7 +48,7 @@ angular.module('dorellang.controllerFactory', [])
       }
     };
 
-    $provide.decorator('$controller', function($delegate, $injector){
+    $provide.decorator('$controller', ["$delegate", "$injector", function($delegate, $injector){
       return function (controllerName){
         initController(controllerName);
         return $delegate.apply(this, arguments);
@@ -75,5 +75,5 @@ angular.module('dorellang.controllerFactory', [])
         }
         return controller;
       }
-    });
-  });
+    }]);
+  }]);

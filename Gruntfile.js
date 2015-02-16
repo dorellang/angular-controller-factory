@@ -128,6 +128,13 @@ module.exports = function (grunt) {
       }
     },
 
+    copy: {
+      dist: {
+        src: ['.tmp/controllerFactory.js'],
+        dest: '<%= yeoman.dist %>/controllerFactory.js'
+      }
+    },
+
     // Test settings
     karma: {
       unit: {
@@ -149,6 +156,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'concat',
     'ngAnnotate',
+    'copy:dist',
     'uglify'
   ]);
 
